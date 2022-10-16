@@ -6,17 +6,19 @@ def solution(n, left, right):
     #     for j in range(n):
     #         answer.append(max(i,j)+1)
     
-    i = left//n
-    j = left%n
+#     i = left//n
+#     j = left%n
     
-    while i != right//n or j != right%n:
-        answer.append(max(i,j)+1)
-        j+=1
-        if j == n:
-            i+=1
-            j=0
-    answer.append(max(i,j)+1)
-    # for i in range(n):
+#     while i != right//n or j != right%n:
+#         answer.append(max(i,j)+1)
+#         j+=1
+#         if j == n:
+#             i+=1
+#             j=0
+#     answer.append(max(i,j)+1)
+
+    for i in range(left,right+1):
+        answer.append(max(i//n,i%n)+1)
     
         
     return answer
