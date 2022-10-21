@@ -1,32 +1,21 @@
 def solution(board, moves):
     answer = 0
-    
-    n = len(board)
     stack = []
-    stack_lists = [[] for _ in range(n)]
-
-    board.reverse()
-    print(board)
-    print(moves)
-    for i in range(n):
-        for idx, val in enumerate(board[i]):
-            if val != 0:
-                stack_lists[idx].append(val)
-                
-    print(stack_lists)
-    
     
     for move in moves:
-        if stack_lists[move-1]:
-            b = stack_lists[move-1].pop()
-            if not stack:
-                stack.append(b)
-            else:
-                a = stack.pop()
-                if a == b:
-                    answer+=2
+        for i in range(len(board)):
+            a = board[i][move-1]
+            if a != 0:
+                board[i][move-1] = 0
+                if stack:
+                    tmp = stack.pop()
+                    if a == tmp:
+                        answer+=2
+                    else:
+                        stack.append(tmp)
+                        stack.append(a)
                 else:
                     stack.append(a)
-                    stack.append(b)
-    print(stack)       
+                break
+        
     return answer
