@@ -1,7 +1,7 @@
 n = int(input())
 arr = list(map(int, input().split()))
 dp = [0] * n
-answer = -1
+
 for i in range(n):
   s = arr[i]
   m = 0
@@ -12,7 +12,5 @@ for i in range(n):
   dp[i] = s + m
   if m < dp[i]:
     m = dp[i]
-  #print(dp)
-  if answer < dp[i]:
-    answer = dp[i]
-print(answer)
+
+print(max(dp))
