@@ -1,57 +1,13 @@
 def solution(dirs):
-    answer = 0
-    visited = []
-    c_x = 0
-    c_y = 0
+    s = set()
+    dic = {'U':(0,1), 'D':(0,-1), 'L':(-1,0), 'R':(1,0)}
+    x, y = 0, 0
     
     for dir in dirs:
-        if dir == 'U':  # 위로 움직이는 경우
-            if c_y + 1 <= 5:
-                n_x = c_x
-                n_y = c_y + 1
-                if [c_x, c_y, n_x, n_y] not in visited:
-                    visited.append([c_x, c_y, n_x, n_y])
-                    visited.append([n_x, n_y, c_x, c_y])
-                    answer += 1
-                c_x = n_x
-                c_y = n_y
-            else:
-                continue
-        elif dir == 'D':  # 아래로 움직이는 경우
-            if c_y - 1 >= -5:
-                n_x = c_x
-                n_y = c_y - 1
-                if [c_x, c_y, n_x, n_y] not in visited:
-                    visited.append([c_x, c_y, n_x, n_y])
-                    visited.append([n_x, n_y, c_x, c_y])
-                    answer += 1
-                c_x = n_x
-                c_y = n_y
-            else:
-                continue
-        elif dir == 'L':  # 왼쪽으로 움직이는 경우
-            if c_x - 1 >= -5:
-                n_x = c_x - 1
-                n_y = c_y
-                if [c_x, c_y, n_x, n_y] not in visited:
-                    visited.append([c_x, c_y, n_x, n_y])
-                    visited.append([n_x, n_y, c_x, c_y])
-                    answer += 1
-                c_x = n_x
-                c_y = n_y
-            else:
-                continue
-        else:  # 오른쪽으로 움직이는 경우
-            if c_x + 1 <= 5:
-                n_x = c_x + 1
-                n_y = c_y
-                if [c_x, c_y, n_x, n_y] not in visited:
-                    visited.append([c_x, c_y, n_x, n_y])
-                    visited.append([n_x, n_y, c_x, c_y])
-                    answer += 1
-                c_x = n_x
-                c_y = n_y
-            else:
-                continue
-                    
-    return answer
+        nx, ny = x + dic[dir][0], y + dic[dir][1]  # 새 위치
+        if -5 <= nx <= 5 and -5 <= ny <= 5:  # 유효한 움직임만
+            s.add((x, y, nx, ny))
+            s.add((nx, ny, x, y))
+            x, y = nx, ny
+    
+    return len(s)//2
