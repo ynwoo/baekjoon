@@ -4,18 +4,18 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-class MyPoint2 {
-	int x, y, currentK;
+public class Main {
+	static class MyPoint {
+		int x, y, currentK;
 
-	public MyPoint2(int x, int y, int currentK) {
-		this.x = x;
-		this.y = y;
-		this.currentK = currentK;
+		public MyPoint(int x, int y, int currentK) {
+			this.x = x;
+			this.y = y;
+			this.currentK = currentK;
+		}
+
 	}
 
-}
-
-public class Main {
 	static int N, M;
 	static char[][] map;
 
@@ -34,27 +34,21 @@ public class Main {
 
 		int answer = bfs(0, 0, 1);
 		System.out.println(answer);
-//		for (int i = 0; i < N; i++) {
-//			for (int j = 0; j < M; j++) {
-//				System.out.print(map[i][j] + " ");
-//			}
-//			System.out.println();
-//		}
 	}
 
 	static int[][] move = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
 
 	private static int bfs(int i, int j, int k) {
-		Queue<MyPoint2> queue = new ArrayDeque<MyPoint2>();
+		Queue<MyPoint> queue = new ArrayDeque<MyPoint>();
 		boolean[][][] visited = new boolean[2][N][M];
 		int level = 1, size = 0;
 
 		visited[k][i][j] = true;
-		queue.offer(new MyPoint2(i, j, k));
+		queue.offer(new MyPoint(i, j, k));
 		while (!queue.isEmpty()) {
 			size = queue.size();
 			while (--size >= 0) {
-				MyPoint2 current = queue.poll();
+				MyPoint current = queue.poll();
 				if (current.x == N - 1 && current.y == M - 1) {
 					// 도착
 					return level;
@@ -70,7 +64,7 @@ public class Main {
 						continue;
 					}
 					visited[current.currentK][ni][nj] = true;
-					queue.offer(new MyPoint2(ni, nj, current.currentK));
+					queue.offer(new MyPoint(ni, nj, current.currentK));
 				}
 
 				// 벽 부수고 이동
@@ -78,11 +72,12 @@ public class Main {
 					for (int d = 0; d < 4; d++) {
 						int ni = current.x + move[d][0];
 						int nj = current.y + move[d][1];
-						if (ni < 0 || N <= ni || nj < 0 || M <= nj || visited[current.currentK][ni][nj] || map[ni][nj] == '0') {
+						if (ni < 0 || N <= ni || nj < 0 || M <= nj || visited[current.currentK][ni][nj]
+								|| map[ni][nj] == '0') {
 							continue;
 						}
 						visited[current.currentK - 1][ni][nj] = true;
-						queue.offer(new MyPoint2(ni, nj, current.currentK - 1));
+						queue.offer(new MyPoint(ni, nj, current.currentK - 1));
 					}
 				}
 
