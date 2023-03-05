@@ -20,11 +20,18 @@ public class Main {
 		for (int i = 0; i < N; i++) {
 			numbers[i] = input.charAt(i) - '0';
 		}
-
+		
+		// 1. 앞에서 부터 스택에 넣는다.
+		// 2. top에 있는 수보다 새롭게 넣으려고 하는 수가 더 크고 k>0이면 스택에서 pop, k-- -> 2반복
+		// 3. k가 0이거나 새롭게 들어오는 숫자가 작거나 같으면 그냥 push
+		// 4. 작업을 다 끝내고 k가 0보다 크다면 k개 만큼 수 빼주기(같은 숫자만 여러개일 것이기 때문에)
+		
 		ArrayDeque<Integer> deque = new ArrayDeque<Integer>();
-		deque.addLast(numbers[0]);
+		deque.addLast(numbers[0]); // 첫 번째 숫자 push
 		for (int i = 1; i < N; i++) {
-			int top = deque.peekLast();
+			int top = deque.peekLast(); //top에 있는 수
+			
+			// 2번작업
 			while (!deque.isEmpty() && top < numbers[i] && K > 0) {
 				deque.pollLast();
 				if (!deque.isEmpty()) {
@@ -32,6 +39,7 @@ public class Main {
 				}
 				K--;
 			}
+			// 3번작업
 			deque.addLast(numbers[i]);
 		}
 		while (K > 0) {
