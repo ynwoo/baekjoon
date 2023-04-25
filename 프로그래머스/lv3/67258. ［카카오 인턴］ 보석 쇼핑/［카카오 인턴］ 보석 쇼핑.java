@@ -15,28 +15,25 @@ class Solution {
         int right = 0;
         
         while(true) {
-            //System.out.println(selected);
             if(jMap.size() == numOfJewelryTypes) {
                 jMap.put(gems[left], jMap.get(gems[left])-1);
                 if (jMap.get(gems[left]) == 0) {
                     jMap.remove(gems[left]);
                 }
                 left++;
-            } else if(right < n) {
+            } else {
+                if(right == n) {
+                    break;
+                }
                 jMap.put(gems[right], jMap.getOrDefault(gems[right], 0) + 1);
                 right++;
-            } else {
-                break;
             }
                 
-            if (jMap.size() == set.size()) {
-                if (right-left < minLength) {
-                    minLength = right-left;
-                    answer[0] = left+1;
-                    answer[1] = right;
-                }
+            if (jMap.size() == numOfJewelryTypes && minLength > right - left) {
+                minLength = right - left;
+                answer[0] = left + 1;
+                answer[1] = right;
             }
-            
         }
         
         return answer;
