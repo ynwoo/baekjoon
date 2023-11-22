@@ -15,8 +15,6 @@ def solution(jobs):
         
         if len(heap) > 0:
             r = heapq.heappop(heap)
-            print(r)
-            print(last_time, current_time)
             cnt += 1
             last_time = current_time
             current_time += r[0]
