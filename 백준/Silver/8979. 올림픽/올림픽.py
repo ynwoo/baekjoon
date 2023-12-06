@@ -15,14 +15,16 @@ g, s, b = orders[0][1:]
 cnt = 0
 # print(g,s,b)
 for order in orders:
-  if order[0] == k:
-    break
-
+  # print(order[1:])
+  # print([g,s,b])
   if order[1:] == [g,s,b]:
     cnt += 1
-    continue
   else:
     answer += cnt
     cnt = 1
+    g, s, b = order[1:]
+
+  if order[0] == k:
+    break
 
 print(answer)
