@@ -14,10 +14,6 @@ for i in range(9):
       zeros.append((i,j))
 
 def check(x, y, n):
-  ve = [0] * 9
-  ho = [0] * 9
-  square = [0] * 9
-
   for i in range(9):
     if n == board[x][i]:
       return False
